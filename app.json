@@ -1,4 +1,5 @@
 {
   "name": "PlayMap",
-  "displayName": "PlayMap"
+  "displayName": "PlayMap",
+  "RNMapboxMapsVersion": "11.8.0"
 }
