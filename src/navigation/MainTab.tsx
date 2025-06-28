@@ -5,7 +5,6 @@ import ProfileScreen from '~features/profile/ProfileScreen';
 import { CardStyleInterpolators, createStackNavigator, TransitionSpecs as StackTransition } from '@react-navigation/stack';
 import { MainStackParamList, MainTabParamList } from '~hooks/useMainNavigation';
 import ExchangeScreen from '~features/exchange/ExchangeScreen';
-import SettingScreen from '~features/setting/SettingScreen';
 import { useTranslation } from 'react-i18next';
 import typography from '~theme/typography';
 import { Image, Text } from 'react-native';
@@ -55,27 +54,27 @@ const createTabLabel = (label: string) => {
 };
 const tabConfig: TabItem[] = [
     {
-        name: 'Home',
-        component: HomeScreen,
-        labelKey: 'home',
-        icon: {
-            default: IMAGES.BOTTOM_TAB.HOME,
-            selected: IMAGES.BOTTOM_TAB.HOME_SELECTED,
-        },
-    },
-    {
         name: 'Map',
         component: MapScreen,
-        labelKey: 'product',
+        labelKey: 'map',
         icon: {
             default: IMAGES.BOTTOM_TAB.PRODUCT,
             selected: IMAGES.BOTTOM_TAB.PRODUCT_SELECTED,
         },
     },
     {
-        name: 'Exchange',
+        name: 'Matches',
+        component: HomeScreen,
+        labelKey: 'matches',
+        icon: {
+            default: IMAGES.BOTTOM_TAB.HOME,
+            selected: IMAGES.BOTTOM_TAB.HOME_SELECTED,
+        },
+    },
+    {
+        name: 'Scoreboard',
         component: ExchangeScreen,
-        labelKey: 'exchange_rate',
+        labelKey: 'scoreboard',
         icon: {
             default: IMAGES.BOTTOM_TAB.EXCHANGE,
             selected: IMAGES.BOTTOM_TAB.EXCHANGE_SELECTED,
@@ -84,21 +83,13 @@ const tabConfig: TabItem[] = [
     {
         name: 'Profile',
         component: ProfileScreen,
-        labelKey: 'me',
+        labelKey: 'profile',
         icon: {
             default: IMAGES.BOTTOM_TAB.ME,
             selected: IMAGES.BOTTOM_TAB.ME_SELECTED,
         },
     },
-    {
-        name: 'Setting',
-        component: SettingScreen,
-        labelKey: 'setting',
-        icon: {
-            default: IMAGES.BOTTOM_TAB.SETTING,
-            selected: IMAGES.BOTTOM_TAB.SETTING_SELECTED,
-        },
-    },
+  
 ];
 
 export const MainTab = () => {

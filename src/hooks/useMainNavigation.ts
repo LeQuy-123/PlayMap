@@ -5,17 +5,12 @@ export type AuthStackParamList = {
     SignIn: undefined;
     SignUp: undefined;
 };
-export type LendingTabParamList = {
-  LendingAll: undefined;
-  LendingInit: undefined;
-  LendingDeleted: undefined;
-};
+
 export type MainTabParamList = {
-  Home: undefined;
+  Scoreboard: undefined;
   Profile: undefined;
-  Exchange: undefined;
+  Matches: undefined;
   Map: undefined;
-  Setting: undefined;
 };
 export type MainStackParamList = {
   Main: undefined;
