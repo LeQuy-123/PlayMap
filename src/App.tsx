@@ -9,6 +9,7 @@ import { ToastProvider } from '~utils/ToastProvider';
 import { useConnectionListener } from '~utils/ConnectionListener';
 import { BottomNotificationProvider } from '~utils/BottomNotificationProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 // const { SplashScreen } = NativeModules;
 
 function App(): React.JSX.Element {
@@ -26,7 +27,9 @@ function App(): React.JSX.Element {
         <ToastProvider>
           <BottomNotificationProvider>
             <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
-              <MainNavigator />
+              <GestureHandlerRootView>
+                <MainNavigator />
+              </GestureHandlerRootView>
             </PersistGate>
           </BottomNotificationProvider>
         </ToastProvider>
