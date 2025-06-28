@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MBXAccessToken</key>
-	<string>pk.eyJ1IjoibGVxdXkiLCJhIjoiY2tzc2hpaDJlMGZ3ajMwcGg0eTZlYTVudCJ9.2DvsLCt5Z4o3ySQHThnq3w</string>
+	<string>$(MAPBOX_PUPLIC_TOKEN)</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

@@ -26,6 +26,6 @@
       </activity>
       <meta-data
         android:name="com.mapbox.token"
-        android:value="pk.eyJ1IjoibGVxdXkiLCJhIjoiY2tzc2hpaDJlMGZ3ajMwcGg0eTZlYTVudCJ9.2DvsLCt5Z4o3ySQHThnq3w" />
+        android:value="${MAPBOX_PUBLIC_TOKEN}" />
     </application>
 </manifest>
