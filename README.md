@@ -120,9 +120,9 @@ Looking for:
 
 ## 📫 Contact
 
-Built by [Your Name].  
+Built by Le Dao Sy Quy.  
 📍 Based in Ho Chi Minh City  
-🔗 [LinkedIn](#) | [Email](#)
+[Email](#ledaosiquy@gmail.com)
 
 ---
 
