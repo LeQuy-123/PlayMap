@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "TapJoy.app"
-               BlueprintName = "TapJoy"
-               ReferencedContainer = "container:TapJoy.xcodeproj">
+               BuildableName = "PlayMap.app"
+               BlueprintName = "PlayMap"
+               ReferencedContainer = "container:PlayMap.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "TapJoyTests.xctest"
-               BlueprintName = "TapJoyTests"
-               ReferencedContainer = "container:TapJoy.xcodeproj">
+               BuildableName = "PlayMapTests.xctest"
+               BlueprintName = "PlayMapTests"
+               ReferencedContainer = "container:PlayMap.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "TapJoy.app"
-            BlueprintName = "TapJoy"
-            ReferencedContainer = "container:TapJoy.xcodeproj">
+            BuildableName = "PlayMap.app"
+            BlueprintName = "PlayMap"
+            ReferencedContainer = "container:PlayMap.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "TapJoy.app"
-            BlueprintName = "TapJoy"
-            ReferencedContainer = "container:TapJoy.xcodeproj">
+            BuildableName = "PlayMap.app"
+            BlueprintName = "PlayMap"
+            ReferencedContainer = "container:PlayMap.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

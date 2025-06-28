@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, NativeModules, Platform } from 'react-native';
+import { Text, Platform } from 'react-native';
 import '~localization';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -9,14 +9,14 @@ import { ToastProvider } from '~utils/ToastProvider';
 import { useConnectionListener } from '~utils/ConnectionListener';
 import { BottomNotificationProvider } from '~utils/BottomNotificationProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-const { SplashScreen } = NativeModules;
+// const { SplashScreen } = NativeModules;
 
 function App(): React.JSX.Element {
   useConnectionListener();
   useEffect(() => {
     setTimeout(() => {
       if (Platform.OS === 'android') { // handle android splash screen native
-        SplashScreen.hide();
+        // SplashScreen.hide();
       }
     }, 500);
   }, []);

@@ -1,4 +1,4 @@
-package com.tapjoy
+package vn.com.playmap
 
 import android.app.Application
 import com.facebook.react.PackageList
