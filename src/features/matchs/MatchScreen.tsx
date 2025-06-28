@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, SafeAreaView,  StyleSheet  } from 'react-native';
 import Config from 'react-native-config';
 
-const HomeScreen = () => {
+const MatchScreen = () => {
 
     return (
         <SafeAreaView style={[styles.container]}>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeScreen;
+export default MatchScreen;

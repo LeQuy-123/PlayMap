@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Text, Platform } from 'react-native';
+import React from 'react';
+import { Text } from 'react-native';
 import '~localization';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -13,13 +13,13 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App(): React.JSX.Element {
   useConnectionListener();
-  useEffect(() => {
-    setTimeout(() => {
-      if (Platform.OS === 'android') { // handle android splash screen native
-        // SplashScreen.hide();
-      }
-    }, 500);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (Platform.OS === 'android') { // handle android splash screen native
+  //       SplashScreen.hide();
+  //     }
+  //   }, 500);
+  // }, []);
   return (
     <Provider store={store}>
       <SafeAreaProvider>
@@ -31,7 +31,6 @@ function App(): React.JSX.Element {
           </BottomNotificationProvider>
         </ToastProvider>
       </SafeAreaProvider>
-
     </Provider>
   );
 }

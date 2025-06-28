@@ -1,10 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '~features/home/HomeScreen';
 import ProfileScreen from '~features/profile/ProfileScreen';
 import { CardStyleInterpolators, createStackNavigator, TransitionSpecs as StackTransition } from '@react-navigation/stack';
 import { MainStackParamList, MainTabParamList } from '~hooks/useMainNavigation';
-import ExchangeScreen from '~features/exchange/ExchangeScreen';
 import { useTranslation } from 'react-i18next';
 import typography from '~theme/typography';
 import { Image, Text } from 'react-native';
@@ -13,6 +11,8 @@ import colors from '~theme/colors';
 import { LabelPosition } from 'node_modules/@react-navigation/bottom-tabs/lib/typescript/src/types';
 import { TransitionSpecs as BottomTabTransition } from '@react-navigation/bottom-tabs';
 import MapScreen from '~features/map/MapScreen';
+import ScoreboardScreen from '~features/scroeboard/ScoreboardScreen';
+import MatchScreen from '~features/matchs/MatchScreen';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 type TabKey = keyof MainTabParamList;
@@ -64,7 +64,7 @@ const tabConfig: TabItem[] = [
     },
     {
         name: 'Matches',
-        component: HomeScreen,
+        component: MatchScreen,
         labelKey: 'matches',
         icon: {
             default: IMAGES.BOTTOM_TAB.HOME,
@@ -73,7 +73,7 @@ const tabConfig: TabItem[] = [
     },
     {
         name: 'Scoreboard',
-        component: ExchangeScreen,
+        component: ScoreboardScreen,
         labelKey: 'scoreboard',
         icon: {
             default: IMAGES.BOTTOM_TAB.EXCHANGE,
@@ -89,7 +89,6 @@ const tabConfig: TabItem[] = [
             selected: IMAGES.BOTTOM_TAB.ME_SELECTED,
         },
     },
-  
 ];
 
 export const MainTab = () => {
@@ -143,10 +142,6 @@ export const MainStack = () => {
             },
         }}>
             <Stack.Screen name="Main" component={MainTab} />
-            {/* <Stack.Screen name="ProductDetail" component={ProductDetail} options={{
-                headerShown: true,
-                headerBackButtonDisplayMode: 'minimal',
-            }} /> */}
         </Stack.Navigator>
     );
 };
