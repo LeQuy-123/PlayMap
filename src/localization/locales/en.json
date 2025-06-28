@@ -10,10 +10,9 @@
   "have_account_ask": "Aready have account?",
   "confirm": "Confirm",
   "cancel": "Cancel",
-  "home": "Home",
-  "prudct": "Product",
-  "exchange_rate": "Exchange Rate",
-  "me": "Me",
-  "setting": "Settings"
+  "map": "Map",
+  "matches": "Matches",
+  "scoreboard": "Score",
+  "profile": "Profile"
 
 }

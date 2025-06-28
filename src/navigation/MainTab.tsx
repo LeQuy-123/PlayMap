@@ -5,14 +5,13 @@ import { CardStyleInterpolators, createStackNavigator, TransitionSpecs as StackT
 import { MainStackParamList, MainTabParamList } from '~hooks/useMainNavigation';
 import { useTranslation } from 'react-i18next';
 import typography from '~theme/typography';
-import { Image, Text } from 'react-native';
-import IMAGES from '~constants/images';
+import { Text } from 'react-native';
 import colors from '~theme/colors';
 import { LabelPosition } from 'node_modules/@react-navigation/bottom-tabs/lib/typescript/src/types';
-import { TransitionSpecs as BottomTabTransition } from '@react-navigation/bottom-tabs';
 import MapScreen from '~features/map/MapScreen';
 import ScoreboardScreen from '~features/scroeboard/ScoreboardScreen';
 import MatchScreen from '~features/matchs/MatchScreen';
+import Icon from '@react-native-vector-icons/material-design-icons';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 type TabKey = keyof MainTabParamList;
@@ -31,13 +30,10 @@ const createTabIcon = (defaultIcon: any, selectedIcon: any) => {
         focused: boolean;
         color: string;
         size: number;
-    }) => (
-        <Image
-            source={focused ? selectedIcon : defaultIcon}
-            style={{ width: 22, height: 22 }}
-            resizeMode="contain"
-        />
-    );
+    }) =>  {
+        if (focused) return selectedIcon;
+        return defaultIcon;
+    };
 };
 const createTabLabel = (label: string) => {
     return ({ focused }: {
@@ -58,8 +54,8 @@ const tabConfig: TabItem[] = [
         component: MapScreen,
         labelKey: 'map',
         icon: {
-            default: IMAGES.BOTTOM_TAB.PRODUCT,
-            selected: IMAGES.BOTTOM_TAB.PRODUCT_SELECTED,
+            default: <Icon name={'compass'} size={26}/>,
+            selected: <Icon name={'compass'} size={26} color={colors.primary} />
         },
     },
     {
@@ -67,8 +63,8 @@ const tabConfig: TabItem[] = [
         component: MatchScreen,
         labelKey: 'matches',
         icon: {
-            default: IMAGES.BOTTOM_TAB.HOME,
-            selected: IMAGES.BOTTOM_TAB.HOME_SELECTED,
+            default: <Icon name={'fencing'} size={26}/>,
+            selected: <Icon name={'fencing'} color={colors.primary} size={26}/>
         },
     },
     {
@@ -76,8 +72,8 @@ const tabConfig: TabItem[] = [
         component: ScoreboardScreen,
         labelKey: 'scoreboard',
         icon: {
-            default: IMAGES.BOTTOM_TAB.EXCHANGE,
-            selected: IMAGES.BOTTOM_TAB.EXCHANGE_SELECTED,
+            default: <Icon name={'scoreboard'} size={26}/>,
+            selected: <Icon name={'scoreboard'} color={colors.primary} size={26}/>
         },
     },
     {
@@ -85,8 +81,8 @@ const tabConfig: TabItem[] = [
         component: ProfileScreen,
         labelKey: 'profile',
         icon: {
-            default: IMAGES.BOTTOM_TAB.ME,
-            selected: IMAGES.BOTTOM_TAB.ME_SELECTED,
+            default: <Icon name={'account-circle'} size={26}/>,
+            selected: <Icon name={'account-circle'} color={colors.primary} size={26}/>
         },
     },
 ];
@@ -110,9 +106,9 @@ export const MainTab = () => {
                     elevation: 0,
                     shadowOpacity: 0,
                 },
-                transitionSpec: BottomTabTransition.ShiftSpec,
             }}
         >
+
             {tabConfig.map(tab => (
                 <Tab.Screen
                     key={tab.name}
