@@ -122,7 +122,7 @@ Looking for:
 
 Built by Le Dao Sy Quy.  
 📍 Based in Ho Chi Minh City  
-[Email](#ledaosiquy@gmail.com)
+[ledaosiquy@gmail.com](#ledaosiquy@gmail.com)
 
 ---
 
