@@ -11,11 +11,11 @@ export type LendingTabParamList = {
   LendingDeleted: undefined;
 };
 export type MainTabParamList = {
-    Home: undefined;
-    Profile: undefined;
-    Exchange: undefined;
-    Lending: undefined;
-    Setting: undefined;
+  Home: undefined;
+  Profile: undefined;
+  Exchange: undefined;
+  Map: undefined;
+  Setting: undefined;
 };
 export type MainStackParamList = {
   Main: undefined;

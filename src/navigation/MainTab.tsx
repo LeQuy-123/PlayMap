@@ -4,7 +4,6 @@ import HomeScreen from '~features/home/HomeScreen';
 import ProfileScreen from '~features/profile/ProfileScreen';
 import { CardStyleInterpolators, createStackNavigator, TransitionSpecs as StackTransition } from '@react-navigation/stack';
 import { MainStackParamList, MainTabParamList } from '~hooks/useMainNavigation';
-import ProductDetail from '~features/product/ProductDetail';
 import ExchangeScreen from '~features/exchange/ExchangeScreen';
 import SettingScreen from '~features/setting/SettingScreen';
 import { useTranslation } from 'react-i18next';
@@ -13,8 +12,8 @@ import { Image, Text } from 'react-native';
 import IMAGES from '~constants/images';
 import colors from '~theme/colors';
 import { LabelPosition } from 'node_modules/@react-navigation/bottom-tabs/lib/typescript/src/types';
-import LendingTab from './LendingTab';
 import { TransitionSpecs as BottomTabTransition } from '@react-navigation/bottom-tabs';
+import MapScreen from '~features/map/MapScreen';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 type TabKey = keyof MainTabParamList;
@@ -65,8 +64,8 @@ const tabConfig: TabItem[] = [
         },
     },
     {
-        name: 'Lending',
-        component: LendingTab,
+        name: 'Map',
+        component: MapScreen,
         labelKey: 'product',
         icon: {
             default: IMAGES.BOTTOM_TAB.PRODUCT,
@@ -153,10 +152,10 @@ export const MainStack = () => {
             },
         }}>
             <Stack.Screen name="Main" component={MainTab} />
-            <Stack.Screen name="ProductDetail" component={ProductDetail} options={{
+            {/* <Stack.Screen name="ProductDetail" component={ProductDetail} options={{
                 headerShown: true,
                 headerBackButtonDisplayMode: 'minimal',
-            }} />
+            }} /> */}
         </Stack.Navigator>
     );
 };
