@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     View,
     TextInput,
@@ -8,11 +8,12 @@ import {
     TouchableOpacity,
     StyleSheet,
 } from 'react-native';
-import { Controller, Control, FieldValues, FieldPath } from 'react-hook-form';
-import { errorMessage, inputStyles, textStyles } from '~theme/components';
+import {Controller, Control, FieldValues, FieldPath} from 'react-hook-form';
+import {errorMessage, inputStyles, textStyles} from '~theme/components';
 import Icon from '@react-native-vector-icons/material-design-icons';
 
-interface ControlledPasswordInputProps<TFieldValues extends FieldValues> extends TextInputProps {
+interface ControlledPasswordInputProps<TFieldValues extends FieldValues>
+    extends TextInputProps {
     name: FieldPath<TFieldValues>;
     control: Control<TFieldValues>;
     rules?: object;
@@ -41,12 +42,21 @@ function ControlledPasswordInput<TFieldValues extends FieldValues>({
             name={name}
             control={control}
             rules={rules}
-            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
-                <View style={{ position: 'relative', gap: 4 }}>
+            render={({
+                field: {onChange, onBlur, value},
+                fieldState: {error},
+            }) => (
+                <View style={{position: 'relative', gap: 4}}>
                     {label && (
                         <Text style={textStyles.label}>
                             {label}
-                            {isRequired && <Text style={[textStyles.label, { color: 'red' }]}> *</Text>}
+                            {isRequired && (
+                                <Text
+                                    style={[textStyles.label, {color: 'red'}]}>
+                                    {' '}
+                                    *
+                                </Text>
+                            )}
                         </Text>
                     )}
                     <TextInput
@@ -57,27 +67,44 @@ function ControlledPasswordInput<TFieldValues extends FieldValues>({
                         style={[
                             inputStyles,
                             inputStyle,
-                            error ? { borderColor: 'red' } : null,
-                            startIcon ? { paddingLeft: 40 } : null,
+                            error ? {borderColor: 'red'} : null,
+                            startIcon ? {paddingLeft: 40} : null,
                             {paddingRight: 40},
                         ]}
                         {...textInputProps}
                     />
-                    {startIcon ? <View
-                        style={styles.startBtn}
-                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                    >
-                        <Icon name={startIcon as any} color="#323232" size={24} />
-                    </View> : null}
+                    {startIcon ? (
+                        <View
+                            style={styles.startBtn}
+                            hitSlop={{
+                                top: 10,
+                                bottom: 10,
+                                left: 10,
+                                right: 10,
+                            }}>
+                            <Icon
+                                name={startIcon as any}
+                                color="#323232"
+                                size={24}
+                            />
+                        </View>
+                    ) : null}
                     <TouchableOpacity
                         onPress={() => setSecure(!secure)}
                         style={styles.toggleButton}
-                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                    >
-                        <Icon name={secure ? 'eye-off' : 'eye'} color="#323232" size={24} />
+                        hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+                        <Icon
+                            name={secure ? 'eye-off' : 'eye'}
+                            color="#323232"
+                            size={24}
+                        />
                     </TouchableOpacity>
 
-                    {error && <Text style={[errorMessage, errorStyle]}>{error.message}</Text>}
+                    {error && (
+                        <Text style={[errorMessage, errorStyle]}>
+                            {error.message}
+                        </Text>
+                    )}
                 </View>
             )}
         />

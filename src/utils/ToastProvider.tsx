@@ -1,12 +1,18 @@
 import Icon from '@react-native-vector-icons/material-design-icons';
-import React, { createContext, useContext, useState, ReactNode, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, {
+    createContext,
+    useContext,
+    useState,
+    ReactNode,
+    useRef,
+} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { NotificationType } from '~constants/type';
-import { getIcon, getTypeColor, SCREEN } from '~constants/util';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {NotificationType} from '~constants/type';
+import {getIcon, getTypeColor, SCREEN} from '~constants/util';
 import colors from '~theme/colors';
-import { textStyles } from '~theme/components';
+import {textStyles} from '~theme/components';
 import spacing from '~theme/spacing';
 import typography from '~theme/typography';
 
@@ -20,14 +26,16 @@ type NotificationContextType = {
         title?: string | null,
         msg?: string | null,
         type?: NotificationType,
-        button?: NotificationButton
+        button?: NotificationButton,
     ) => void;
 };
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+    undefined,
+);
 let showGlobalNotification: NotificationContextType['showToast'];
 
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
+export const ToastProvider = ({children}: {children: ReactNode}) => {
     const [title, setTitle] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [type, setType] = useState<NotificationType>('info');
@@ -48,9 +56,11 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     const showToast: NotificationContextType['showToast'] = (
         t = null,
         msg = null,
-        nType = 'info'
+        nType = 'info',
     ) => {
-        if (timeoutRef.current) {clearTimeout(timeoutRef.current);}
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
 
         setTitle(t);
         setMessage(msg);
@@ -65,7 +75,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     showGlobalNotification = showToast;
 
     return (
-        <NotificationContext.Provider value={{ showToast }}>
+        <NotificationContext.Provider value={{showToast}}>
             {children}
             <Modal
                 isVisible={visible}
@@ -76,19 +86,48 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
                 useNativeDriver
                 useNativeDriverForBackdrop
                 hasBackdrop
-                style={styles.modal}
-            >
-                <View style={[styles.popup, { backgroundColor: colors.background, marginTop: insets.top}]}>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                        <Icon name={getIcon(type!)} size={24} color={getTypeColor(type!)} style={{ marginRight: 10 }} />
-                        <View style={{ flex: 1 }}>
+                style={styles.modal}>
+                <View
+                    style={[
+                        styles.popup,
+                        {
+                            backgroundColor: colors.background,
+                            marginTop: insets.top,
+                        },
+                    ]}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'flex-start',
+                        }}>
+                        <Icon
+                            name={getIcon(type!)}
+                            size={24}
+                            color={getTypeColor(type!)}
+                            style={{marginRight: 10}}
+                        />
+                        <View style={{flex: 1}}>
                             {title ? (
-                                <Text style={[textStyles.tile, { color: '#1D1929', fontSize: typography.fontSize.md }]}>
+                                <Text
+                                    style={[
+                                        textStyles.tile,
+                                        {
+                                            color: '#1D1929',
+                                            fontSize: typography.fontSize.md,
+                                        },
+                                    ]}>
                                     {title}
                                 </Text>
                             ) : null}
                             {message ? (
-                                <Text style={[textStyles.body, { color: '#1D1929', fontSize: typography.fontSize.sm }]}>
+                                <Text
+                                    style={[
+                                        textStyles.body,
+                                        {
+                                            color: '#1D1929',
+                                            fontSize: typography.fontSize.sm,
+                                        },
+                                    ]}>
                                     {message}
                                 </Text>
                             ) : null}
@@ -102,17 +141,21 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
 export const useNotification = () => {
     const context = useContext(NotificationContext);
-    if (!context) {throw new Error('useNotification must be used within ToastProvider');}
+    if (!context) {
+        throw new Error('useNotification must be used within ToastProvider');
+    }
     return context;
 };
 
 export const toast = (options: {
-    type?: NotificationType
-    title?: string | null,
-    msg?: string | null,
+    type?: NotificationType;
+    title?: string | null;
+    msg?: string | null;
 }) => {
     const {title, msg, type = 'info'} = options;
-    if (!msg && !title) {return;}
+    if (!msg && !title) {
+        return;
+    }
     if (showGlobalNotification) {
         showGlobalNotification(title, msg, type);
     } else {
@@ -123,7 +166,7 @@ export const toast = (options: {
 const styles = StyleSheet.create({
     modal: {
         margin: 0,
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
     },
     popup: {

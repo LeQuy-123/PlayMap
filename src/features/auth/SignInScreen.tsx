@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useAuth } from '~hooks/useAuth';
-import { useForm } from 'react-hook-form';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {useAuth} from '~hooks/useAuth';
+import {useForm} from 'react-hook-form';
 import useMainNavigation from '~hooks/useMainNavigation';
 import BackgroundWrapper from '~components/wrapper/BackgroundWrapper';
 import KeyboardWrapper from '~components/wrapper/KeyboardWrapper';
 import GradientButton from '~components/input/GradientButton';
 import AuthWrapper from '~components/wrapper/AuthWrapper';
-import { container, formStyle, textStyles } from '~theme/components';
-import { useTranslation } from 'react-i18next';
+import {container, formStyle, textStyles} from '~theme/components';
+import {useTranslation} from 'react-i18next';
 import ControlledInput from '~components/input/ControlledInput';
 import ControlledPasswordInput from '~components/input/ControlledPasswordInput';
 interface SignInFormData {
@@ -16,26 +16,28 @@ interface SignInFormData {
     password: string;
 }
 const SignInScreen = () => {
-    const { t } = useTranslation();
-    const { loginUser, loginState } = useAuth();
-    const { authNavigation } = useMainNavigation();
-    const { control, handleSubmit,  setError } = useForm<SignInFormData>();
-    const validate = (data: { phone: string; password: string }) => {
-        const { phone, password } = data;
+    const {t} = useTranslation();
+    const {loginUser, loginState} = useAuth();
+    const {authNavigation} = useMainNavigation();
+    const {control, handleSubmit, setError} = useForm<SignInFormData>();
+    const validate = (data: {phone: string; password: string}) => {
+        const {phone, password} = data;
         if (!phone) {
-            setError('phone', { message: 'Phone number is required' });
+            setError('phone', {message: 'Phone number is required'});
         }
         if (!password) {
-            setError('password', { message: 'Password is required' });
+            setError('password', {message: 'Password is required'});
         } else if (password.length < 6) {
-            setError('password', { message: 'Password must be at least 6 characters' });
+            setError('password', {
+                message: 'Password must be at least 6 characters',
+            });
         }
         if (!phone || !password || password.length < 6) {
             return false;
         }
         return true;
     };
-    const handleLogin = (data: { phone: string; password: string }) => {
+    const handleLogin = (data: {phone: string; password: string}) => {
         if (validate(data)) {
             loginUser(data.phone, data.password);
         }
@@ -58,7 +60,7 @@ const SignInScreen = () => {
                                 label={t('phone')}
                                 startIcon="phone-dial"
                                 keyboardType="phone-pad"
-                                rules={{ required: 'Phone number is required' }}
+                                rules={{required: 'Phone number is required'}}
                             />
                             {/* Password Input */}
                             <ControlledPasswordInput
@@ -66,7 +68,7 @@ const SignInScreen = () => {
                                 label={t('password')}
                                 control={control}
                                 startIcon="lock"
-                                rules={{ required: 'Password is required' }}
+                                rules={{required: 'Password is required'}}
                             />
                             <GradientButton
                                 title={t('sign_in')}
@@ -75,10 +77,13 @@ const SignInScreen = () => {
                                 loading={loginState.loading}
                                 style={{marginTop: 40}}
                             />
-                            <View style={{width: '100%', alignItems:'center'}}>
+                            <View style={{width: '100%', alignItems: 'center'}}>
                                 <TouchableOpacity onPress={handleSignUp}>
                                     <Text style={textStyles.body}>
-                                        {t('no_account_ask')} <Text style={textStyles.pressable}>{t('sign_up')}</Text>
+                                        {t('no_account_ask')}{' '}
+                                        <Text style={textStyles.pressable}>
+                                            {t('sign_up')}
+                                        </Text>
                                     </Text>
                                 </TouchableOpacity>
                             </View>

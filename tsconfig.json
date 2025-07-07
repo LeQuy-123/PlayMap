@@ -1,21 +1,21 @@
 {
-  "extends": "@react-native/typescript-config",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "~localization/*": ["src/localization/*"],
-      "~store/*": ["src/store/*"],
-      "~slices/*": ["src/slices/*"],
-      "~hooks/*": ["src/hooks/*"],
-      "~components/*": ["src/components/*"],
-      "~middlewares/*": ["src/middlewares/*"],
-      "~features/*": ["src/features/*"],
-      "~api/*": ["src/api/*"],
-      "~navigation/*": ["src/navigation/*"],
-      "~utils/*": ["src/utils/*"],
-      "~services/*": ["src/services/*"],
-      "~constants/*": ["src/constants/*"],
-      "~theme/*": ["src/theme/*"],
+    "extends": "@react-native/typescript-config",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "~localization/*": ["src/localization/*"],
+            "~store/*": ["src/store/*"],
+            "~slices/*": ["src/slices/*"],
+            "~hooks/*": ["src/hooks/*"],
+            "~components/*": ["src/components/*"],
+            "~middlewares/*": ["src/middlewares/*"],
+            "~features/*": ["src/features/*"],
+            "~api/*": ["src/api/*"],
+            "~navigation/*": ["src/navigation/*"],
+            "~utils/*": ["src/utils/*"],
+            "~services/*": ["src/services/*"],
+            "~constants/*": ["src/constants/*"],
+            "~theme/*": ["src/theme/*"]
+        }
     }
-  }
 }

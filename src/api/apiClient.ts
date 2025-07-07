@@ -1,34 +1,33 @@
 import axios from 'axios';
 import Config from 'react-native-config';
 
-
 const apiClient = axios.create({
-  baseURL: Config.API_URL,
-  timeout: 10000,
+    baseURL: Config.API_URL,
+    timeout: 10000,
 });
 
 // Attach access token to requests
 apiClient.interceptors.request.use(
-  async config => {
-    // const state = store.getState();
-    // const token = state.auth.token;
+    async config => {
+        // const state = store.getState();
+        // const token = state.auth.token;
 
-    // const netInfo = await NetInfo.fetch();
-    // if (!netInfo.isConnected) {
-    //   toast({
-    //     msg: 'No internet connection',
-    //     type: 'error',
-    //   });
-    //   return Promise.reject({__handled: true});
-    // }
+        // const netInfo = await NetInfo.fetch();
+        // if (!netInfo.isConnected) {
+        //   toast({
+        //     msg: 'No internet connection',
+        //     type: 'error',
+        //   });
+        //   return Promise.reject({__handled: true});
+        // }
 
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+        // if (token) {
+        //   config.headers.Authorization = `Bearer ${token}`;
+        // }
 
-    return config;
-  },
-  error => Promise.reject(error),
+        return config;
+    },
+    error => Promise.reject(error),
 );
 
 // Refresh token handling
@@ -45,61 +44,59 @@ apiClient.interceptors.request.use(
 
 // Response Interceptor
 apiClient.interceptors.response.use(
-  response => response,
-  async error => {
+    response => response,
+    async error => {
+        // const originalRequest = error.config;
+        // const status = error.response?.status;
+        // const state = store.getState();
 
-    // const originalRequest = error.config;
-    // const status = error.response?.status;
-    // const state = store.getState();
+        // const shouldTryRefresh =
+        //   status === 401 && !originalRequest._retry && state.auth.refreshToken;
 
-    // const shouldTryRefresh =
-    //   status === 401 && !originalRequest._retry && state.auth.refreshToken;
+        // if (shouldTryRefresh) {
+        //   originalRequest._retry = true;
 
-    // if (shouldTryRefresh) {
-    //   originalRequest._retry = true;
+        //   if (isRefreshing) {
+        //     return new Promise((resolve, reject) => {
+        //       failedQueue.push({
+        //         resolve: (token: string) => {
+        //           originalRequest.headers.Authorization = 'Bearer ' + token;
+        //           resolve(apiClient(originalRequest));
+        //         },
+        //         reject: (err: any) => reject(err),
+        //       });
+        //     });
+        //   }
 
-    //   if (isRefreshing) {
-    //     return new Promise((resolve, reject) => {
-    //       failedQueue.push({
-    //         resolve: (token: string) => {
-    //           originalRequest.headers.Authorization = 'Bearer ' + token;
-    //           resolve(apiClient(originalRequest));
-    //         },
-    //         reject: (err: any) => reject(err),
-    //       });
-    //     });
-    //   }
+        //   isRefreshing = true;
 
-    //   isRefreshing = true;
+        //   try {
+        //     // const res = await  AuthService.refreshTokenApi(state.auth.refreshToken!);
+        //     const { data } = await apiClient.post('/auth/refresh', {
+        //       refreshToken: state.auth.refreshToken,
+        //     });
+        //     const {accessToken, refreshToken, user} = data;
 
-    //   try {
-    //     // const res = await  AuthService.refreshTokenApi(state.auth.refreshToken!);
-    //     const { data } = await apiClient.post('/auth/refresh', {
-    //       refreshToken: state.auth.refreshToken,
-    //     });
-    //     const {accessToken, refreshToken, user} = data;
+        //     store.dispatch(setAuth({user, token: accessToken, refreshToken}));
+        //     processQueue(null, accessToken);
 
-    //     store.dispatch(setAuth({user, token: accessToken, refreshToken}));
-    //     processQueue(null, accessToken);
+        //     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        //     return apiClient(originalRequest);
+        //   } catch (refreshErr: any) {
+        //     processQueue(refreshErr, null);
+        //     store.dispatch(logout());
+        //     toast({
+        //       msg: 'Session expired. Please log in again.',
+        //       type: 'error',
+        //     });
+        //     return Promise.reject({...refreshErr, __handled: true});
+        //   } finally {
+        //     isRefreshing = false;
+        //   }
+        // }
 
-    //     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-    //     return apiClient(originalRequest);
-    //   } catch (refreshErr: any) {
-    //     processQueue(refreshErr, null);
-    //     store.dispatch(logout());
-    //     toast({
-    //       msg: 'Session expired. Please log in again.',
-    //       type: 'error',
-    //     });
-    //     return Promise.reject({...refreshErr, __handled: true});
-    //   } finally {
-    //     isRefreshing = false;
-    //   }
-    // }
- 
-
-    return Promise.reject(error);
-  },
+        return Promise.reject(error);
+    },
 );
 
 export default apiClient;

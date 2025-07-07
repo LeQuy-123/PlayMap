@@ -1,13 +1,17 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ProfileScreen from '~features/profile/ProfileScreen';
-import { CardStyleInterpolators, createStackNavigator, TransitionSpecs as StackTransition } from '@react-navigation/stack';
-import { MainStackParamList, MainTabParamList } from '~hooks/useMainNavigation';
-import { useTranslation } from 'react-i18next';
+import {
+    CardStyleInterpolators,
+    createStackNavigator,
+    TransitionSpecs as StackTransition,
+} from '@react-navigation/stack';
+import {MainStackParamList, MainTabParamList} from '~hooks/useMainNavigation';
+import {useTranslation} from 'react-i18next';
 import typography from '~theme/typography';
-import { Text } from 'react-native';
+import {Text} from 'react-native';
 import colors from '~theme/colors';
-import { LabelPosition } from 'node_modules/@react-navigation/bottom-tabs/lib/typescript/src/types';
+import {LabelPosition} from 'node_modules/@react-navigation/bottom-tabs/lib/typescript/src/types';
 import MapScreen from '~features/map/MapScreen';
 import ScoreboardScreen from '~features/scroeboard/ScoreboardScreen';
 import MatchScreen from '~features/matchs/MatchScreen';
@@ -26,26 +30,27 @@ type TabItem = {
     };
 };
 const createTabIcon = (defaultIcon: any, selectedIcon: any) => {
-    return ({ focused }: {
-        focused: boolean;
-        color: string;
-        size: number;
-    }) =>  {
+    return ({focused}: {focused: boolean; color: string; size: number}) => {
         if (focused) return selectedIcon;
         return defaultIcon;
     };
 };
 const createTabLabel = (label: string) => {
-    return ({ focused }: {
+    return ({
+        focused,
+    }: {
         focused: boolean;
         color: string;
         position: LabelPosition;
         children: string;
     }) => (
-        <Text style={{
-            fontSize: typography.fontSize.xs,
-            color: focused ? colors.primary : colors.gray,
-        }}>{label}</Text>
+        <Text
+            style={{
+                fontSize: typography.fontSize.xs,
+                color: focused ? colors.primary : colors.gray,
+            }}>
+            {label}
+        </Text>
     );
 };
 const tabConfig: TabItem[] = [
@@ -54,8 +59,10 @@ const tabConfig: TabItem[] = [
         component: MapScreen,
         labelKey: 'map',
         icon: {
-            default: <Icon name={'compass'} size={26}/>,
-            selected: <Icon name={'compass'} size={26} color={colors.primary} />
+            default: <Icon name={'compass'} size={26} />,
+            selected: (
+                <Icon name={'compass'} size={26} color={colors.primary} />
+            ),
         },
     },
     {
@@ -63,8 +70,10 @@ const tabConfig: TabItem[] = [
         component: MatchScreen,
         labelKey: 'matches',
         icon: {
-            default: <Icon name={'fencing'} size={26}/>,
-            selected: <Icon name={'fencing'} color={colors.primary} size={26}/>
+            default: <Icon name={'fencing'} size={26} />,
+            selected: (
+                <Icon name={'fencing'} color={colors.primary} size={26} />
+            ),
         },
     },
     {
@@ -72,8 +81,10 @@ const tabConfig: TabItem[] = [
         component: ScoreboardScreen,
         labelKey: 'scoreboard',
         icon: {
-            default: <Icon name={'scoreboard'} size={26}/>,
-            selected: <Icon name={'scoreboard'} color={colors.primary} size={26}/>
+            default: <Icon name={'scoreboard'} size={26} />,
+            selected: (
+                <Icon name={'scoreboard'} color={colors.primary} size={26} />
+            ),
         },
     },
     {
@@ -81,14 +92,20 @@ const tabConfig: TabItem[] = [
         component: ProfileScreen,
         labelKey: 'profile',
         icon: {
-            default: <Icon name={'account-circle'} size={26}/>,
-            selected: <Icon name={'account-circle'} color={colors.primary} size={26}/>
+            default: <Icon name={'account-circle'} size={26} />,
+            selected: (
+                <Icon
+                    name={'account-circle'}
+                    color={colors.primary}
+                    size={26}
+                />
+            ),
         },
     },
 ];
 
 export const MainTab = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     return (
         <Tab.Navigator
@@ -106,9 +123,7 @@ export const MainTab = () => {
                     elevation: 0,
                     shadowOpacity: 0,
                 },
-            }}
-        >
-
+            }}>
             {tabConfig.map(tab => (
                 <Tab.Screen
                     key={tab.name}
@@ -117,8 +132,14 @@ export const MainTab = () => {
                     options={{
                         tabBarLabel: createTabLabel(t(tab.labelKey)),
                         tabBarAccessibilityLabel: t(tab.labelKey),
-                        tabBarLabelStyle: { fontSize: typography.fontSize.xs, color: colors.primary },
-                        tabBarIcon: createTabIcon(tab.icon.default, tab.icon.selected),
+                        tabBarLabelStyle: {
+                            fontSize: typography.fontSize.xs,
+                            color: colors.primary,
+                        },
+                        tabBarIcon: createTabIcon(
+                            tab.icon.default,
+                            tab.icon.selected,
+                        ),
                     }}
                 />
             ))}
@@ -129,14 +150,15 @@ const Stack = createStackNavigator<MainStackParamList>();
 
 export const MainStack = () => {
     return (
-        <Stack.Navigator screenOptions={{
-            headerShown: false,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            transitionSpec: {
-                open: StackTransition.TransitionIOSSpec,
-                close: StackTransition.TransitionIOSSpec,
-            },
-        }}>
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                transitionSpec: {
+                    open: StackTransition.TransitionIOSSpec,
+                    close: StackTransition.TransitionIOSSpec,
+                },
+            }}>
             <Stack.Screen name="Main" component={MainTab} />
         </Stack.Navigator>
     );

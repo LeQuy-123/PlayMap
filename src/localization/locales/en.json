@@ -1,18 +1,17 @@
 {
-  "welcome": "Welcome to our app",
-  "greeting": "Hello, {{name}}!",
-  "sign_in": "Sign in",
-  "password": "Password",
-  "phone": "Phone",
-  "forgot_password": "Forgot password",
-  "no_account_ask": "Doesn't have account yet?",
-  "sign_up": "Sign up",
-  "have_account_ask": "Aready have account?",
-  "confirm": "Confirm",
-  "cancel": "Cancel",
-  "map": "Map",
-  "matches": "Matches",
-  "scoreboard": "Score",
-  "profile": "Profile"
-
+    "welcome": "Welcome to our app",
+    "greeting": "Hello, {{name}}!",
+    "sign_in": "Sign in",
+    "password": "Password",
+    "phone": "Phone",
+    "forgot_password": "Forgot password",
+    "no_account_ask": "Doesn't have account yet?",
+    "sign_up": "Sign up",
+    "have_account_ask": "Aready have account?",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "map": "Map",
+    "matches": "Matches",
+    "scoreboard": "Score",
+    "profile": "Profile"
 }

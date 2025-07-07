@@ -1,19 +1,17 @@
 {
-  "welcome": "Chào mừng 1",
-  "greeting": "Xin chào, {{name}} !",
-  "sign_in": "Đăng nhập",
-  "password": "Mật khẩu",
-  "phone": "Điện thoại",
-  "forgot_password": "Quên mật khẩu",
-  "no_account_ask": "Chưa có tài khoản?",
-  "sign_up": "Đăng ký",
-  "have_account_ask": "Đã có tài khoản?",
-  "confirm": "Xác nhận",
-  "cancel": "Thoát",
-  "map": "Bản đồ",
-  "matches": "Thách đấu",
-  "scoreboard": "Xếp hạng",
-  "profile": "Tài khoản"
-
-  
+    "welcome": "Chào mừng 1",
+    "greeting": "Xin chào, {{name}} !",
+    "sign_in": "Đăng nhập",
+    "password": "Mật khẩu",
+    "phone": "Điện thoại",
+    "forgot_password": "Quên mật khẩu",
+    "no_account_ask": "Chưa có tài khoản?",
+    "sign_up": "Đăng ký",
+    "have_account_ask": "Đã có tài khoản?",
+    "confirm": "Xác nhận",
+    "cancel": "Thoát",
+    "map": "Bản đồ",
+    "matches": "Thách đấu",
+    "scoreboard": "Xếp hạng",
+    "profile": "Tài khoản"
 }

@@ -8,30 +8,29 @@ import en from './locales/en.json';
 import vi from './locales/vi.json';
 
 const resources = {
-  en: {translation: en},
-  vi: {translation: vi},
+    en: {translation: en},
+    vi: {translation: vi},
 };
 
 const languageDetector: LanguageDetectorAsyncModule = {
-  type: 'languageDetector',
-  async: true,
-  detect: (callback: (lang: string) => void) => {
-    // const bestLang = RNLocalize.findBestLanguageTag(Object.keys(resources));
-    callback('vi');
-  },
-  init: () => {},
-  cacheUserLanguage: () => {},
+    type: 'languageDetector',
+    async: true,
+    detect: (callback: (lang: string) => void) => {
+        // const bestLang = RNLocalize.findBestLanguageTag(Object.keys(resources));
+        callback('vi');
+    },
+    init: () => {},
+    cacheUserLanguage: () => {},
 };
 
-i18n
-  .use(languageDetector)
-  .use(initReactI18next)
-  .init({
-    fallbackLng: 'vi',
-    resources,
-    interpolation: {
-      escapeValue: false, // not needed for React
-    },
-  });
+i18n.use(languageDetector)
+    .use(initReactI18next)
+    .init({
+        fallbackLng: 'vi',
+        resources,
+        interpolation: {
+            escapeValue: false, // not needed for React
+        },
+    });
 
 export default i18n;

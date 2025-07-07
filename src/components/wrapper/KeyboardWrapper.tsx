@@ -25,14 +25,13 @@ const KeyboardWrapper = ({
             style={[styles.flex, style]}
             behavior={behavior}
             enabled
-            keyboardVerticalOffset={Platform.select({ ios: 0, android: 0 })} // customize if using headers
+            keyboardVerticalOffset={Platform.select({ios: 0, android: 0})} // customize if using headers
         >
             <ScrollView
-                contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
+                contentContainerStyle={[{flexGrow: 1}, contentContainerStyle]}
                 showsVerticalScrollIndicator={false}
                 keyboardShouldPersistTaps="handled"
-                bounces={false}
-            >
+                bounces={false}>
                 <View style={[styles.flex, contentContainerStyle]}>
                     {children}
                 </View>

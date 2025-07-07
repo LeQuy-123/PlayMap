@@ -8,8 +8,11 @@ import {
     TextStyle,
     ActivityIndicator,
 } from 'react-native';
-import { buttonPrimaryStyles, buttonPrimaryStylesDisable, textStyles } from '~theme/components';
-
+import {
+    buttonPrimaryStyles,
+    buttonPrimaryStylesDisable,
+    textStyles,
+} from '~theme/components';
 
 type Props = {
     title: string;
@@ -36,8 +39,11 @@ const GradientButton = ({
             onPress={onPress}
             disabled={isDisabled}
             activeOpacity={0.8}
-            style={[buttonPrimaryStyles, style, isDisabled && buttonPrimaryStylesDisable]}
-        >
+            style={[
+                buttonPrimaryStyles,
+                style,
+                isDisabled && buttonPrimaryStylesDisable,
+            ]}>
             {loading ? (
                 <ActivityIndicator color={spinnerColor} />
             ) : (

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef} from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import { toast } from './ToastProvider';
+import {toast} from './ToastProvider';
 
 export const useConnectionListener = () => {
     const isConnectedRef = useRef<boolean | null>(null);
@@ -36,7 +36,11 @@ export const useConnectionListener = () => {
             }
 
             // Lost connection
-            if (isConnectedRef.current && !isOnline && !hasShownLostConnection.current) {
+            if (
+                isConnectedRef.current &&
+                !isOnline &&
+                !hasShownLostConnection.current
+            ) {
                 hasShownLostConnection.current = true;
                 toast('No internet connection', 'error', {
                     label: 'Reconnect',
