@@ -2,7 +2,6 @@ import {configureStore} from '@reduxjs/toolkit';
 import {persistStore, persistReducer, PersistState} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import rootReducer from './rootReducer';
-import { authTransform } from './slices/authSlice';
 import Config from 'react-native-config';
 
 
@@ -16,8 +15,8 @@ const loggerMiddleware = (storeAPI: any) => (next: any) => (action: any) => {
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['auth'],
-  transforms: [authTransform],
+  whitelist: [],
+  transforms: [],
 };
 type RootReducerState = ReturnType<typeof rootReducer> & {
   _persist?: PersistState;
