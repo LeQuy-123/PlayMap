@@ -7,7 +7,7 @@ export const fetchSports = createAsyncThunk(
   async (_, {rejectWithValue}) => {
     try {
       const data = await SportSerivce.getListSport();
-      return data;
+      return data.sports;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || error.message);
     }
