@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Config from 'react-native-config';
 
@@ -5,98 +6,69 @@ const apiClient = axios.create({
     baseURL: Config.API_URL,
     timeout: 10000,
 });
+const getTokens = async () => {
+    const accessToken = await AsyncStorage.getItem('access_token');
+    const refreshToken = await AsyncStorage.getItem('refresh_token');
+    return {accessToken, refreshToken};
+};
 
-// Attach access token to requests
+
+// Attach access token to all requests
 apiClient.interceptors.request.use(
     async config => {
-        // const state = store.getState();
-        // const token = state.auth.token;
+        const { accessToken } = await getTokens();
 
-        // const netInfo = await NetInfo.fetch();
-        // if (!netInfo.isConnected) {
-        //   toast({
-        //     msg: 'No internet connection',
-        //     type: 'error',
-        //   });
-        //   return Promise.reject({__handled: true});
-        // }
-
-        // if (token) {
-        //   config.headers.Authorization = `Bearer ${token}`;
-        // }
+        if (accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
+        }
 
         return config;
     },
-    error => Promise.reject(error),
+    error => Promise.reject(error)
 );
 
-// Refresh token handling
-// let isRefreshing = false;
-// let failedQueue: any[] = [];
-
-// const processQueue = (error: any, token: string | null = null) => {
-//   failedQueue.forEach(prom => {
-//     if (error) {prom.reject(error);}
-//     else {prom.resolve(token);}
-//   });
-//   failedQueue = [];
-// };
-
-// Response Interceptor
+// Auto-refresh logic
 apiClient.interceptors.response.use(
     response => response,
     async error => {
-        // const originalRequest = error.config;
-        // const status = error.response?.status;
-        // const state = store.getState();
+        const originalRequest = error.config;
 
-        // const shouldTryRefresh =
-        //   status === 401 && !originalRequest._retry && state.auth.refreshToken;
+        // Token expired? Try refresh
+        if (
+            error.response?.status === 401 &&
+            !originalRequest._retry
+        ) {
+            originalRequest._retry = true;
 
-        // if (shouldTryRefresh) {
-        //   originalRequest._retry = true;
+            const { refreshToken } = await getTokens();
 
-        //   if (isRefreshing) {
-        //     return new Promise((resolve, reject) => {
-        //       failedQueue.push({
-        //         resolve: (token: string) => {
-        //           originalRequest.headers.Authorization = 'Bearer ' + token;
-        //           resolve(apiClient(originalRequest));
-        //         },
-        //         reject: (err: any) => reject(err),
-        //       });
-        //     });
-        //   }
+            if (!refreshToken) {
+                return Promise.reject("No refresh token");
+            }
 
-        //   isRefreshing = true;
+            try {
+                const res = await axios.post(`${Config.API_URL}/auth/refresh`, {
+                    refresh_token: refreshToken,
+                });
 
-        //   try {
-        //     // const res = await  AuthService.refreshTokenApi(state.auth.refreshToken!);
-        //     const { data } = await apiClient.post('/auth/refresh', {
-        //       refreshToken: state.auth.refreshToken,
-        //     });
-        //     const {accessToken, refreshToken, user} = data;
+                const newAccess = res.data.access_token;
+                const newRefresh = res.data.refresh_token;
 
-        //     store.dispatch(setAuth({user, token: accessToken, refreshToken}));
-        //     processQueue(null, accessToken);
+                await AsyncStorage.setItem("access_token", newAccess);
+                await AsyncStorage.setItem("refresh_token", newRefresh);
 
-        //     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        //     return apiClient(originalRequest);
-        //   } catch (refreshErr: any) {
-        //     processQueue(refreshErr, null);
-        //     store.dispatch(logout());
-        //     toast({
-        //       msg: 'Session expired. Please log in again.',
-        //       type: 'error',
-        //     });
-        //     return Promise.reject({...refreshErr, __handled: true});
-        //   } finally {
-        //     isRefreshing = false;
-        //   }
-        // }
+                // Retry original request
+                originalRequest.headers.Authorization = `Bearer ${newAccess}`;
+                return apiClient(originalRequest);
+            } catch (refreshError) {
+                // Refresh failed → logout
+                await AsyncStorage.multiRemove(["access_token", "refresh_token"]);
+                return Promise.reject(refreshError);
+            }
+        }
 
         return Promise.reject(error);
-    },
+    }
 );
 
 export default apiClient;
