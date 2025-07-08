@@ -4,7 +4,12 @@ import spacing from './spacing';
 import typography from './typography';
 
 const {height} = Dimensions.get('window');
-
+export const card: ViewStyle = {
+    width: '100%',
+    borderRadius: spacing.md,
+    paddingVertical: spacing.md,
+    backgroundColor: '#222',
+};
 export const container: ViewStyle = {
     flex: 1,
     alignItems: 'center',

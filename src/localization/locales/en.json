@@ -13,5 +13,7 @@
     "map": "Map",
     "matches": "Matches",
     "scoreboard": "Score",
-    "profile": "Profile"
+    "profile": "Profile",
+    "on_board_quest": "What should we call you?",
+    "hello": "Hello"
 }
