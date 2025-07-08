@@ -9,7 +9,7 @@
         "start": "react-native start",
         "test": "jest",
         "postinstall": "npx patch-package",
-        "format": "prettier --write ."
+        "format": "prettier --write \"src/**/*.{js,ts,tsx,jsx}\""
     },
     "dependencies": {
         "@react-native-async-storage/async-storage": "^2.2.0",
