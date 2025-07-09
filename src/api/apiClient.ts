@@ -1,22 +1,23 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Config from 'react-native-config';
+import { store } from '~store/store';
 
 const apiClient = axios.create({
     baseURL: Config.API_URL,
     timeout: 10000,
 });
-const getTokens = async () => {
-    const accessToken = await AsyncStorage.getItem('access_token');
-    const refreshToken = await AsyncStorage.getItem('refresh_token');
+const getTokensFromRedux = () => {
+    const state = store.getState();
+    const accessToken = state.user.user?.token ?? null;
+    const refreshToken = state.user.user?.refreshToken ?? null;
     return {accessToken, refreshToken};
 };
-
 
 // Attach access token to all requests
 apiClient.interceptors.request.use(
     async config => {
-        const { accessToken } = await getTokens();
+        const {accessToken} = await getTokensFromRedux();
 
         if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
@@ -40,7 +41,7 @@ apiClient.interceptors.response.use(
         ) {
             originalRequest._retry = true;
 
-            const { refreshToken } = await getTokens();
+            const {refreshToken} = await getTokensFromRedux();
 
             if (!refreshToken) {
                 return Promise.reject("No refresh token");

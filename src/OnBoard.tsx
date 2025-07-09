@@ -15,6 +15,7 @@ import { registerAnonUser } from '~store/slices/userSlice';
 import  {
     locationManager
 } from '@rnmapbox/maps';
+import UserService from '~services/UserService';
 const OnBoard = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useDispatch<AppDispatch>();
     const sports = useSelector<RootState>(state => state.sport.sports) as any[]
@@ -31,12 +32,13 @@ const OnBoard = ({ children }: { children: React.ReactNode }) => {
             try {
                 await dispatch(fetchSports()).unwrap();
                 if(user?.id) {
+                    await UserService.ping()
                     setVisible(false)
                 } else {
                     setVisible(true)
                 }
             } catch (err) {
-                console.error('Failed to load metadata:', err);
+                console.log('Failed to load metadata:', err);
             } finally {
                 // SplashScreen.hide(); // only hide when ready
             }

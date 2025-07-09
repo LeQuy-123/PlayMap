@@ -15,6 +15,14 @@ class UserService {
         });
         return response.data;
     }
+
+    /**
+     * Call when app starts or resumes to mark the user as active
+     */
+    static async ping() {
+        const response = await apiClient.post('/users/ping');
+        return response.data;
+    }
 }
 
 export default UserService;
