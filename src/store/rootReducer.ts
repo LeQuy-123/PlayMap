@@ -6,7 +6,7 @@ import sportReducer from './slices/sportSlice';
 const rootReducer = combineReducers({
     // lending: lendingReducer,
     user: userReducer,
-    Sport: sportReducer,
+    sport: sportReducer,
 });
 
 export default rootReducer;

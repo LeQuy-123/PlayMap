@@ -1,5 +1,5 @@
+// userSlice.ts
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserService from '~services/UserService';
 
 interface UserLocation {
@@ -12,11 +12,13 @@ interface User {
     name: string;
     is_anonymous: boolean;
     location: UserLocation;
+    token: string;
+    refreshToken: string;
 }
 
 interface UserState {
     user: User | null;
-    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    status: 'idle' | 'loading';
     error: string | null;
 }
 
@@ -26,7 +28,6 @@ const initialState: UserState = {
     error: null,
 };
 
-// Thunk to register anonymous user
 export const registerAnonUser = createAsyncThunk(
     'user/registerAnonUser',
     async (
@@ -53,20 +54,18 @@ export const registerAnonUser = createAsyncThunk(
 
             const {user} = res;
 
-            if (!user?.token || !user?.refresh_token) {
+            if (!user?.token || !user?.refreshToken) {
                 throw new Error('Missing tokens in user object');
             }
 
-            // Save tokens to AsyncStorage
-            await AsyncStorage.setItem('access_token', user.token);
-            await AsyncStorage.setItem('refresh_token', user.refresh_token);
-
-            // Return simplified user object
+            // return full user object for persist
             return {
                 id: user.id,
                 name: user.name,
                 is_anonymous: user.is_anonymous,
                 location: user.location,
+                token: user.token,
+                refreshToken: user.refreshToken,
             };
         } catch (err: any) {
             return rejectWithValue(err.response?.data || err.message);
@@ -82,7 +81,6 @@ const userSlice = createSlice({
             state.user = null;
             state.status = 'idle';
             state.error = null;
-            AsyncStorage.multiRemove(['access_token', 'refresh_token']);
         },
     },
     extraReducers: builder => {
@@ -92,11 +90,11 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(registerAnonUser.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.status = 'idle';
                 state.user = action.payload;
             })
             .addCase(registerAnonUser.rejected, (state, action) => {
-                state.status = 'failed';
+                state.status = 'idle';
                 state.error = action.payload as string;
             });
     },

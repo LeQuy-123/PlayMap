@@ -63,6 +63,7 @@ export const textStyles: {
     body: TextStyle;
     pressable: TextStyle;
     tile: TextStyle;
+    tag: TextStyle;
 } = {
     heading: {
         fontFamily: typography.fontFamily.default,
@@ -93,5 +94,11 @@ export const textStyles: {
         fontSize: typography.fontSize.md,
         color: colors.pressable,
         fontWeight: 500,
+    },
+    tag: {
+        fontFamily: typography.fontFamily.default,
+        fontSize: typography.fontSize.sm,
+        fontWeight: typography.fontWeight.normal as any,
+        color: colors.text,
     },
 };

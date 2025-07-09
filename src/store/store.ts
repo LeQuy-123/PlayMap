@@ -14,7 +14,7 @@ const loggerMiddleware = (storeAPI: any) => (next: any) => (action: any) => {
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: [],
+    whitelist: ['user'],
     transforms: [],
 };
 type RootReducerState = ReturnType<typeof rootReducer> & {
