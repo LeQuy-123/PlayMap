@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '~localization';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '~store/store';
-import { fetchSports } from '~store/slices/sportSlice';
+import { fetchSports, Sport } from '~store/slices/sportSlice';
 import { useTranslation } from 'react-i18next';
 import ReactNativeModal from 'react-native-modal';
 import colors from '~theme/colors';
@@ -11,16 +11,16 @@ import { buttonPrimaryStyles,  card, inputStyles, textStyles } from '~theme/comp
 import spacing from '~theme/spacing';
 import typography from '~theme/typography';
 import { SCREEN } from '~constants/util';
-import { registerAnonUser } from '~store/slices/userSlice';
+import { registerAnonUser, User } from '~store/slices/userSlice';
 import  {
     locationManager
 } from '@rnmapbox/maps';
 import UserService from '~services/UserService';
 const OnBoard = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const sports = useSelector<RootState>(state => state.sport.sports) as any[]
+    const sports = useSelector<RootState>(state => state.sport.sports) as Sport[]
     const status = useSelector<RootState>(state => state.user.status) as 'idle' | 'loading' 
-    const user = useSelector<RootState>(state => state.user.user) as any
+    const user = useSelector<RootState>(state => state.user.user) as User
 
     const { t } = useTranslation()
     const [visible, setVisible] = useState(false);
@@ -85,14 +85,6 @@ const OnBoard = ({ children }: { children: React.ReactNode }) => {
                         position: 'relative',
                     },
                 ]}>
-                <View style={styles.iconContainer}>
-                    {/* <Icon
-                        name={'zend'}
-                        size={60}
-                        color={colors.info}
-                        style={{ margin: -6 }}
-                    /> */}
-                </View>
                 <Text
                     style={[
                         textStyles.tile,

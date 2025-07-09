@@ -7,7 +7,7 @@ interface UserLocation {
     lng: number;
 }
 
-interface User {
+export interface User {
     id: string;
     name: string;
     is_anonymous: boolean;

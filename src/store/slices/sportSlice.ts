@@ -13,10 +13,14 @@ export const fetchSports = createAsyncThunk(
         }
     },
 );
-
+export interface Sport {
+    created_at: string;
+    id: string;
+    name: string;
+}
 // Initial state
 interface SportState {
-    sports: any[]; // Replace `any` with your sport model if available
+    sports: Sport[]; // Replace `any` with your sport model if available
     loading: boolean;
     error: string | null;
 }
