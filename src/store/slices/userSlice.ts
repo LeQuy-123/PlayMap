@@ -1,5 +1,6 @@
-// userSlice.ts
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import { AsyncStatus } from '~constants/type';
+import { getDefaultAsyncStatus } from '~constants/util';
 import UserService from '~services/UserService';
 
 interface UserLocation {
@@ -16,17 +17,24 @@ export interface User {
     refreshToken: string;
 }
 
+
 interface UserState {
     user: User | null;
-    status: 'idle' | 'loading';
-    error: string | null;
+    status: AsyncStatus;
+    pingStatus: AsyncStatus;
 }
+
+
 
 const initialState: UserState = {
     user: null,
-    status: 'idle',
-    error: null,
+    status: getDefaultAsyncStatus(),
+    pingStatus: getDefaultAsyncStatus(),
 };
+
+// -------------------
+// Async Thunks
+// -------------------
 
 export const registerAnonUser = createAsyncThunk(
     'user/registerAnonUser',
@@ -58,7 +66,6 @@ export const registerAnonUser = createAsyncThunk(
                 throw new Error('Missing tokens in user object');
             }
 
-            // return full user object for persist
             return {
                 id: user.id,
                 name: user.name,
@@ -73,30 +80,59 @@ export const registerAnonUser = createAsyncThunk(
     },
 );
 
+export const pingUser = createAsyncThunk(
+    'user/pingUser',
+    async (_, {rejectWithValue}) => {
+        try {
+            await UserService.ping();
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data || err.message);
+        }
+    },
+);
+
+// -------------------
+// Slice
+// -------------------
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        logoutUser: state => {
+        logoutUser(state) {
             state.user = null;
-            state.status = 'idle';
-            state.error = null;
+            state.status = getDefaultAsyncStatus();
+            state.pingStatus = getDefaultAsyncStatus();
         },
     },
     extraReducers: builder => {
-        builder
-            .addCase(registerAnonUser.pending, state => {
-                state.status = 'loading';
-                state.error = null;
-            })
-            .addCase(registerAnonUser.fulfilled, (state, action) => {
-                state.status = 'idle';
-                state.user = action.payload;
-            })
-            .addCase(registerAnonUser.rejected, (state, action) => {
-                state.status = 'idle';
-                state.error = action.payload as string;
-            });
+        const handleAsync = (
+            statusKey: keyof Pick<UserState, 'status' | 'pingStatus'>,
+            thunk: any,
+            onFulfilled?: (state: UserState, action: any) => void,
+        ) => {
+            builder
+                .addCase(thunk.pending, state => {
+                    state[statusKey].loading = true;
+                    state[statusKey].error = null;
+                })
+                .addCase(thunk.fulfilled, (state, action) => {
+                    state[statusKey].loading = false;
+                    if (onFulfilled) {
+                        onFulfilled(state, action);
+                    }
+                })
+                .addCase(thunk.rejected, (state, action) => {
+                    state[statusKey].loading = false;
+                    state[statusKey].error = action.payload as string;
+                });
+        };
+
+        handleAsync('status', registerAnonUser, (state, action) => {
+            state.user = action.payload;
+        });
+
+        handleAsync('pingStatus', pingUser);
     },
 });
 

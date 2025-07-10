@@ -1,5 +1,5 @@
 import colors from '~theme/colors';
-import {NotificationType} from './type';
+import {AsyncStatus, NotificationType} from './type';
 import {Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
 export const SCREEN = {
@@ -34,3 +34,7 @@ export const getIcon = (type: NotificationType) => {
             return 'information';
     }
 };
+export const getDefaultAsyncStatus = (): AsyncStatus => ({
+    loading: false,
+    error: null,
+});

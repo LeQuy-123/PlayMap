@@ -11,15 +11,15 @@ import { buttonPrimaryStyles,  card, inputStyles, textStyles } from '~theme/comp
 import spacing from '~theme/spacing';
 import typography from '~theme/typography';
 import { SCREEN } from '~constants/util';
-import { registerAnonUser, User } from '~store/slices/userSlice';
+import { pingUser, registerAnonUser, User } from '~store/slices/userSlice';
 import  {
     locationManager
 } from '@rnmapbox/maps';
-import UserService from '~services/UserService';
+import { AsyncStatus } from '~constants/type';
 const OnBoard = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useDispatch<AppDispatch>();
     const sports = useSelector<RootState>(state => state.sport.sports) as Sport[]
-    const status = useSelector<RootState>(state => state.user.status) as 'idle' | 'loading' 
+    const status = useSelector<RootState>(state => state.user.status) as AsyncStatus
     const user = useSelector<RootState>(state => state.user.user) as User
 
     const { t } = useTranslation()
@@ -32,7 +32,7 @@ const OnBoard = ({ children }: { children: React.ReactNode }) => {
             try {
                 await dispatch(fetchSports()).unwrap();
                 if(user?.id) {
-                    await UserService.ping()
+                    await dispatch(pingUser()).unwrap();
                     setVisible(false)
                 } else {
                     setVisible(true)
@@ -121,7 +121,7 @@ const OnBoard = ({ children }: { children: React.ReactNode }) => {
                 </View>
                 <TouchableOpacity
                     onPress={handleConfirm}
-                    disabled={status !== 'idle'}
+                    disabled={status.loading}
                     style={[
                         buttonPrimaryStyles,
                         {
@@ -129,7 +129,7 @@ const OnBoard = ({ children }: { children: React.ReactNode }) => {
                             marginHorizontal: 20
                         },
                     ]}>
-                    {status !== 'idle' ? <ActivityIndicator color={'white'}/> : <Text
+                    {status.loading ? <ActivityIndicator color={'white'}/> : <Text
                         style={[
                             textStyles.body,
                             {
