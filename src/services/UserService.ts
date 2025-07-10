@@ -23,6 +23,17 @@ class UserService {
         const response = await apiClient.post('/users/ping');
         return response.data;
     }
+
+    static async getNearByUser(params: {
+        lat: string;
+        lng: string;
+        radius_km?: string;
+    }) {
+        const searchParams = new URLSearchParams(params);
+        const response = await apiClient.get(`/users/nearby?${searchParams.toString()}`);
+
+        return response.data;
+    }
 }
 
 export default UserService;

@@ -22,12 +22,16 @@ interface UserState {
     user: User | null;
     status: AsyncStatus;
     pingStatus: AsyncStatus;
+    nearbyUsers: User[];
+    nearbyStatus: AsyncStatus; 
 }
 
 
 
 const initialState: UserState = {
     user: null,
+    nearbyUsers: [],
+    nearbyStatus: getDefaultAsyncStatus(),
     status: getDefaultAsyncStatus(),
     pingStatus: getDefaultAsyncStatus(),
 };
@@ -90,7 +94,24 @@ export const pingUser = createAsyncThunk(
         }
     },
 );
-
+export const getNearByUser = createAsyncThunk(
+    'user/getNearByUser',
+    async (
+        params: {
+            lat: string;
+            lng: string;
+            radius_km?: string;
+        },
+        {rejectWithValue},
+    ) => {
+        try {
+            const res = await UserService.getNearByUser(params);
+            return res.users;
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data || err.message);
+        }
+    },
+);
 // -------------------
 // Slice
 // -------------------
@@ -101,13 +122,17 @@ const userSlice = createSlice({
     reducers: {
         logoutUser(state) {
             state.user = null;
+            state.nearbyStatus = getDefaultAsyncStatus();
             state.status = getDefaultAsyncStatus();
             state.pingStatus = getDefaultAsyncStatus();
         },
     },
     extraReducers: builder => {
         const handleAsync = (
-            statusKey: keyof Pick<UserState, 'status' | 'pingStatus'>,
+            statusKey: keyof Pick<
+                UserState,
+                'status' | 'pingStatus' | 'nearbyStatus'
+            >,
             thunk: any,
             onFulfilled?: (state: UserState, action: any) => void,
         ) => {
@@ -133,6 +158,9 @@ const userSlice = createSlice({
         });
 
         handleAsync('pingStatus', pingUser);
+        handleAsync('nearbyStatus', getNearByUser, (state, action) => {
+            state.nearbyUsers = action.payload;
+        });
     },
 });
 
