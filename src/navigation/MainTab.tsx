@@ -12,7 +12,7 @@ import typography from '~theme/typography';
 import {Text} from 'react-native';
 import colors from '~theme/colors';
 import {LabelPosition} from 'node_modules/@react-navigation/bottom-tabs/lib/typescript/src/types';
-import MapScreen from '~features/map/MapScreen';
+import MapScreen from '~features/map/components/MapScreen';
 import ScoreboardScreen from '~features/scroeboard/ScoreboardScreen';
 import MatchScreen from '~features/matchs/MatchScreen';
 import Icon from '@react-native-vector-icons/material-design-icons';

@@ -10,7 +10,7 @@ import {useConnectionListener} from '~utils/ConnectionListener';
 import {BottomNotificationProvider} from '~utils/BottomNotificationProvider';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import OnBoard from './OnBoard';
+import OnBoard from '~features/onboarding/components/OnBoardModal';
 
  
 

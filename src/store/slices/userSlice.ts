@@ -16,14 +16,23 @@ export interface User {
     token: string;
     refreshToken: string;
 }
-
+export type NearbyUser = {
+    id: string;
+    name: string;
+    location: UserLocation;
+    is_anonymous: boolean;
+    main_sport?: {
+        id: string;
+        name: string;
+    } | null;
+};
 
 interface UserState {
     user: User | null;
     status: AsyncStatus;
     pingStatus: AsyncStatus;
-    nearbyUsers: User[];
-    nearbyStatus: AsyncStatus; 
+    nearbyUsers: NearbyUser[];
+    nearbyStatus: AsyncStatus;
 }
 
 
