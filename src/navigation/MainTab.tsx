@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import ProfileScreen from '~features/profile/ProfileScreen';
+import ProfileScreen from '~features/profile/components/ProfileScreen';
 import {
     CardStyleInterpolators,
     createStackNavigator,

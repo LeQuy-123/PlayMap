@@ -49,11 +49,11 @@ export const useMapController = () => {
             const timeDiff = lastTime ? now - lastTime : Infinity;
             const distance = lastLoc
                 ? haversineDistance(
-                      newLoc.lat,
-                      newLoc.lng,
-                      lastLoc.lat,
-                      lastLoc.lng,
-                  )
+                    newLoc.lat,
+                    newLoc.lng,
+                    lastLoc.lat,
+                    lastLoc.lng,
+                )
                 : Infinity;
 
             const shouldFetch =
