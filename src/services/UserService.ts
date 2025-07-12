@@ -31,7 +31,6 @@ class UserService {
     }) {
         const searchParams = new URLSearchParams(params);
         const response = await apiClient.get(`/users/nearby?${searchParams.toString()}`);
-
         return response.data;
     }
 }

@@ -25,7 +25,7 @@ export const useChallengeModal = () => {
         try {
             await sendChallenge({
                 to_user_id: targetUser.id,
-                sport_id: targetUser.main_sport?.id || '', // or use user's sport
+                sport_id: currentUser?.mainSport?.id || '', // or use user's sport
             });
             Alert.alert('Challenge sent!');
         } catch (e) {

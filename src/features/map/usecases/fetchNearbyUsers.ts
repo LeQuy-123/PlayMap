@@ -6,6 +6,7 @@ export const fetchNearbyUsers = async (
     lat: string,
     lng: string,
     radius_km = '5',
-) => {
-    await dispatch(getNearByUser({lat, lng, radius_km})).unwrap();
+) => {    
+    const res = await dispatch(getNearByUser({lat, lng, radius_km})).unwrap();
+    return res;
 };

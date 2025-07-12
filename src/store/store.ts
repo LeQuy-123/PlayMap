@@ -5,9 +5,9 @@ import rootReducer from './rootReducer';
 import Config from 'react-native-config';
 
 const loggerMiddleware = (storeAPI: any) => (next: any) => (action: any) => {
-    console.log('%c Dispatching:', 'color: grey', action);
+    // console.log('%c Dispatching:', 'color: grey', action);
     const result = next(action);
-    console.log('%c Next state:', 'color: green', storeAPI.getState());
+    // console.log('%c Next state:', 'color: green', storeAPI.getState());
     return result;
 };
 

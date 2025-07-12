@@ -14,6 +14,10 @@ export interface User {
     is_anonymous: boolean;
     location: UserLocation;
     token: string;
+    mainSport?: {
+        id: string;
+        name: string;
+    } | null;
     refreshToken: string;
 }
 export type NearbyUser = {
@@ -21,7 +25,7 @@ export type NearbyUser = {
     name: string;
     location: UserLocation;
     is_anonymous: boolean;
-    main_sport?: {
+    mainSport?: {
         id: string;
         name: string;
     } | null;
@@ -79,14 +83,7 @@ export const registerAnonUser = createAsyncThunk(
                 throw new Error('Missing tokens in user object');
             }
 
-            return {
-                id: user.id,
-                name: user.name,
-                is_anonymous: user.is_anonymous,
-                location: user.location,
-                token: user.token,
-                refreshToken: user.refreshToken,
-            };
+            return user;
         } catch (err: any) {
             return rejectWithValue(err.response?.data || err.message);
         }
